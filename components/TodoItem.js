@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
     borderColor: '#7986cb',
     borderWidth: 1,
     marginRight: 16,
+    alignItems: 'center',
   },
   filled: {
     justifyContent: 'center',

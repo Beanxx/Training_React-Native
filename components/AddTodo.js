@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderBottomWidth: 1,
     justifyContent: 'center',
+    alignItems: 'center',
     flexDirection: 'row',
   },
   input: {
