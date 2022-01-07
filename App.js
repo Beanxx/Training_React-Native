@@ -4,13 +4,16 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from './screens/HomeScreen';
 import DetailScreen from './screens/DetailScreen';
 import {View, Text, TouchableOpacity} from 'react-native';
+import HeaderlessScreen from './screens/HeaderlessScreen';
 
 const Stack = createNativeStackNavigator();
 
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator
+        initialRouteName="Home"
+        screenOptions={{headerShown: false}}>
         <Stack.Screen
           name="Home"
           component={HomeScreen}
@@ -50,6 +53,11 @@ function App() {
               </View>
             ),
           }}
+        />
+        <Stack.Screen
+          name="Headerless"
+          component={HeaderlessScreen}
+          options={{headerShown: false}}
         />
       </Stack.Navigator>
     </NavigationContainer>
