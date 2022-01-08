@@ -22,7 +22,7 @@ function HomeScreen() {
     useCallback(() => {
       console.log('이 화면을 보고 있어요.');
       return () => {
-        console.log('다른 화면을 넘어갔어요.');
+        console.log('다른 화면으로 넘어갔어요.');
       };
     }, []),
   );
