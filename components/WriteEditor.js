@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {View, StyleSheet, TextInput} from 'react-native';
-import WriteHeader from './WriteHeader';
 
 function WriteEditor({title, body, onChangeTitle, onChangeBody}) {
+  const bodyRef = useRef();
+
   return (
     <View style={styles.block}>
       <TextInput
@@ -11,6 +12,9 @@ function WriteEditor({title, body, onChangeTitle, onChangeBody}) {
         returnKeyType="next"
         onChangeText={onChangeTitle}
         value={title}
+        onSubmitEditing={() => {
+          bodyRef.current.focus();
+        }}
       />
       <TextInput
         placeholder="당신의 오늘을 기록해보세요"
@@ -19,6 +23,7 @@ function WriteEditor({title, body, onChangeTitle, onChangeBody}) {
         textAlignVertical="top"
         onChangeText={onChangeBody}
         value={body}
+        ref={bodyRef}
       />
     </View>
   );
