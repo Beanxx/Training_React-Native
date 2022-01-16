@@ -16,6 +16,8 @@ function FloatingWriteButton({hidden}) {
     Animated.timing(animation, {
       toValue: hidden ? 1 : 0,
       useNativeDriver: true,
+      tension: 45,
+      friction: 5,
     }).start();
   }, [animation, hidden]);
 
