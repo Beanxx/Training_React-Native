@@ -4,7 +4,8 @@ import SignInScreen from './SignInScreen';
 import WelcomeScreen from './WelcomeScreen';
 import {useUserContext} from '../contexts/UserContext';
 import MainTab from './MainTab';
-import {getUser, subscribeAuth} from '../lib/users';
+import {getUser} from '../lib/users';
+import {subscribeAuth} from '../lib/auth';
 
 const Stack = createNativeStackNavigator();
 
