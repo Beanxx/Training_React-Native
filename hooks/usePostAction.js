@@ -3,13 +3,16 @@ import {ActionSheetIOS, Platform} from 'react-native';
 import {removePost} from '../lib/posts';
 import {useNavigation, useRoute} from '@react-navigation/native';
 
-export default function usePostActions({id, descrtiption}) {
+export default function usePostActions({id, description}) {
   const [isSelecting, setIsSelecting] = useState(false);
   const navigation = useNavigation();
   const route = useRoute();
 
   const edit = () => {
-    console.log('TODO: edit');
+    navigation.navigate('Modify', {
+      id,
+      description,
+    });
   };
 
   const remove = async () => {
@@ -19,6 +22,8 @@ export default function usePostActions({id, descrtiption}) {
     if (route.name === 'Post') {
       navigation.pop();
     }
+
+    // TODO: 홈 및 프로필 화면의 목록 업데이트
   };
 
   const onPressMore = () => {
