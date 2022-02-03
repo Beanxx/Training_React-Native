@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {
   ActivityIndicator,
   FlatList,
@@ -12,15 +12,6 @@ import events from '../lib/events';
 function FeedScreen() {
   const {posts, noMorePost, refreshing, onLoadMore, onRefresh, removePost} =
     usePosts();
-
-  useEffect(() => {
-    events.addListener('refresh', onRefresh);
-    events.addListener('removePost', removePost);
-    return () => {
-      events.removeListener('refresh', onRefresh);
-      events.removeListener('removePost', removePost);
-    };
-  }, [onRefresh, removePost]);
 
   return (
     <FlatList
