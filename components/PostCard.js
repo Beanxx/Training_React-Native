@@ -2,6 +2,10 @@ import React, {useMemo} from 'react';
 import {View, StyleSheet, Text, Image, Pressable} from 'react-native';
 import Avatar from './Avatar';
 import {useNavigation, useNavigationState} from '@react-navigation/native';
+import {useUserContext} from '../contexts/UserContext';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import ActionSheetModal from './ActionSheetModal';
+import usePostActions from '../hooks/usePostAction';
 
 function PostCard({user, photoURL, description, createdAt, id}) {
   const routeNames = useNavigationState(state => state.routeNames);
@@ -11,6 +15,8 @@ function PostCard({user, photoURL, description, createdAt, id}) {
     [createdAt],
   );
   const navigation = useNavigation();
+  const {user: me} = useUserContext();
+  const isMyPost = me.id === user.id;
 
   const onOpenProfile = () => {
     // MyProfile이 존재하는지 확인
@@ -24,28 +30,45 @@ function PostCard({user, photoURL, description, createdAt, id}) {
     }
   };
 
-  return (
-    <View style={styles.block}>
-      <View style={[styles.head, styles.paddingBlock]}>
-        <Pressable style={styles.profile} onPress={onOpenProfile}>
-          <Avatar source={user.photoURL && {uri: user.photoURL}} />
-          <Text style={styles.displayName}>{user.displayName}</Text>
-        </Pressable>
-      </View>
+  const {isSelecting, onPressMore, onClose, actions} = usePostActions({
+    id,
+    description,
+  });
 
-      <Image
-        source={{uri: photoURL}}
-        style={styles.image}
-        resizeMethod="resize"
-        resizeMode="cover"
-      />
-      <View style={styles.paddingBlock}>
-        <Text style={styles.description}>{description}</Text>
-        <Text date={date} style={styles.date}>
-          {date.toLocaleDateString()}
-        </Text>
+  return (
+    <>
+      <View style={styles.block}>
+        <View style={[styles.head, styles.paddingBlock]}>
+          <Pressable style={styles.profile} onPress={onOpenProfile}>
+            <Avatar source={user.photoURL && {uri: user.photoURL}} />
+            <Text style={styles.displayName}>{user.displayName}</Text>
+          </Pressable>
+          {isMyPost && (
+            <Pressable hitSlop={8} onPress={onPressMore}>
+              <Icon name="more-vert" size={20} />
+            </Pressable>
+          )}
+        </View>
+
+        <Image
+          source={{uri: photoURL}}
+          style={styles.image}
+          resizeMethod="resize"
+          resizeMode="cover"
+        />
+        <View style={styles.paddingBlock}>
+          <Text style={styles.description}>{description}</Text>
+          <Text date={date} style={styles.date}>
+            {date.toLocaleDateString()}
+          </Text>
+        </View>
       </View>
-    </View>
+      <ActionSheetModal
+        visible={isSelecting}
+        actions={actions}
+        onClose={onClose}
+      />
+    </>
   );
 }
 
