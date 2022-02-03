@@ -22,9 +22,9 @@ export default function usePosts(userId) {
     if (!posts || posts.length === 0 || refreshing) {
       return;
     }
-    const firestPost = posts[0];
+    const firstPost = posts[0];
     setRefreshing(true);
-    const newerPosts = await getNewerPosts(firestPost.id, userId);
+    const newerPosts = await getNewerPosts(firstPost.id, userId);
     setRefreshing(false);
     if (newerPosts.length === 0) {
       return;
@@ -41,6 +41,13 @@ export default function usePosts(userId) {
     });
   }, [userId]);
 
+  const removePost = useCallback(
+    postId => {
+      setPosts(posts.filter(post => post.id !== postId));
+    },
+    [posts],
+  );
+
   // custom Hook은 JSX를 반환하지 않음.
   return {
     posts,
@@ -48,5 +55,6 @@ export default function usePosts(userId) {
     refreshing,
     onLoadMore,
     onRefresh,
+    removePost,
   };
 }
