@@ -3,7 +3,7 @@ import {Post} from './types';
 
 export async function getPosts() {
   const response = await axios.get<Post[]>(
-    'https://jsonplacehoder.typicode.com/posts',
+    'https://jsonplaceholder.typicode.com/posts',
   );
   return response.data;
 }

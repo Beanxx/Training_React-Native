@@ -3,7 +3,7 @@ import {atom} from 'recoil';
 export interface User {
   id: number;
   username: string;
-  displayname: string;
+  displayName: string;
 }
 
 interface AuthState {

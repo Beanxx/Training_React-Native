@@ -1,4 +1,4 @@
-import {atom, selector} from 'recoil';
+import {atom, selector, selectorFamily} from 'recoil';
 
 export interface Todo {
   id: number;
@@ -22,4 +22,12 @@ export const nextTodoId = selector({
     const lastId = todos[todos.length - 1]?.id ?? 0;
     return lastId + 1; // lastIddptj 1을 더한 값을 새로운 항목의 id로 사용
   },
+});
+
+export const todoById = selectorFamily({
+  key: 'todoById',
+  get:
+    (id: number) =>
+    ({get}) =>
+      get(todosState).find(todo => todo.id === id),
 });
